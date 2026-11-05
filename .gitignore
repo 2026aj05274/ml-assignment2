@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.streamlit/secrets.toml
+.venv/
+venv/
+.idea/
+.vscode/
+
+# Backup files
+app_backup.py
+app.py.save
