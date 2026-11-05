@@ -48,7 +48,9 @@ The trained preprocessing pipelines and classifiers are saved as Joblib files in
 
 ## d. GitHub repository link
 
-**Replace with your repository URL after push:**
+
+**GitHub repository:**
+
 
 `https://github.com/2026aj05274/ml-assignment2`
 
@@ -57,7 +59,8 @@ The trained preprocessing pipelines and classifiers are saved as Joblib files in
 ```
 ml-assignment2/
 ├── app.py                 # Streamlit UI
-├── train_models.py        # Training & model export├── requirements.txt
+├── train_models.py        # Training & model export
+├── requirements.txt
 ├── README.md
 ├── test_data.csv          # Held-out test set (upload this in the app)
 ├── metrics.json           # Test metrics used in the table below
@@ -74,8 +77,10 @@ ml-assignment2/
 ---
 
 ## e. Models used
-
-All models share the same preprocessing and test set. Metrics below are on **`test_data.csv`** (no retraining at inference time).
+All five models use the same training and held-out test split. Median imputation is applied to all models. 
+StandardScaler is additionally applied to Logistic Regression, KNN, Gaussian Naive Bayes, and SVM. 
+Decision Tree uses median imputation without feature scaling.
+Metrics below are on **`test_data.csv`** (no retraining at inference time).
 
 ### Comparison table
 
@@ -103,7 +108,7 @@ All models share the same preprocessing and test set. Metrics below are on **`te
 ## Streamlit app (local run)
 
 ```bash
-cd ml-assignment2-classification
+cd ml-assignment2-final
 pip install -r requirements.txt
 python train_models.py          # only if model/ is missing
 python -m streamlit run app.py
@@ -113,9 +118,9 @@ In the app: upload `test_data.csv`, pick a model from the dropdown, and view met
 
 ### Live deployment link
 
-**After [Streamlit Community Cloud](https://streamlit.io/cloud) deploy, paste your app URL here:**
+**Live Streamlit Community Cloud application:**
 
-`https://<your-app>.streamlit.app`
+`https://ml-assignment2-q76fuuumnnzppj6eosgc5k.streamlit.app`
 
 Deploy settings: repository = this project, branch = `main`, main file = **`app.py`**.
 
