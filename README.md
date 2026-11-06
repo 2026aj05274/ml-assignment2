@@ -26,7 +26,7 @@ This project trains five standard classifiers on the same labeled data, compares
 | **Missing values** | None in the raw UCI file |
 | **Split** | 75% train / 25% stratified test (`random_state=42`); **`test_data.csv`** in this repo is the held-out 1,151 rows (features + `is_spam`) |
 
-Features are continuous proportions in \([0, 100]\); The dataset contains numerical features representing word frequencies, character frequencies, and capital-letter run lengths. The preprocessing pipeline applies median imputation to the input features. StandardScaler is applied before Logistic Regression, KNN, Gaussian Naive Bayes, and SVM. Decision Tree uses imputation without feature scaling.
+The 48 word-frequency and 6 character-frequency features are expressed as percentages. The remaining 3 features describe capital-letter run lengths. The preprocessing pipeline applies median imputation to the input features. StandardScaler is applied before Logistic Regression, KNN, Gaussian Naive Bayes, and SVM. Decision Tree uses imputation without feature scaling.
 
 ---
 ## c. Data preprocessing and methodology
@@ -51,8 +51,7 @@ The trained preprocessing pipelines and classifiers are saved as Joblib files in
 
 **GitHub repository:**
 
-
-`https://github.com/2026aj05274/ml-assignment2`
+[GitHub Repository](https://github.com/2026aj05274/ml-assignment2)
 
 **Repository layout:**
 
@@ -60,6 +59,7 @@ The trained preprocessing pipelines and classifiers are saved as Joblib files in
 ml-assignment2/
 ├── app.py                 # Streamlit UI
 ├── train_models.py        # Training & model export
+├── verify_models.py       # Verification of saved models
 ├── requirements.txt
 ├── README.md
 ├── test_data.csv          # Held-out test set (upload this in the app)
@@ -101,14 +101,14 @@ Metrics below are on **`test_data.csv`** (no retraining at inference time).
 | **KNN** | Distance-based voting captures local structure; performance is solid but slightly below linear/SVM models on accuracy and MCC. Sensitive to scaling (addressed here with `StandardScaler`). |
 | **Naive Bayes** | **Lowest accuracy and precision**; many ham emails misclassified as spam (high recall ~0.95 but precision ~0.71). Gaussian independence assumptions are a poor fit for correlated word-frequency features. |
 | **Support Vector Machine** | **Best overall on this split**: highest accuracy, F1, and MCC, with AUC comparable to logistic regression. RBF kernel models non-linear boundaries between spam and ham clusters. |
-| **Overall, winner for your dataset?** | **Support Vector Machine** (marginally ahead of Logistic Regression on accuracy/F1/MCC). For deployment, logistic regression remains an interpretable alternative with nearly identical AUC. |
+| **Overall winner** | **Support Vector Machine (SVM)**. It achieved the highest accuracy (0.9288), F1-score (0.9072), and MCC (0.8503). Logistic Regression achieved the highest AUC (0.9728), indicating slightly better discrimination in probability ranking. SVM is the overall winner based on the combined performance metrics, although its advantage over Logistic Regression is marginal. |
 
 ---
 
 ## Streamlit app (local run)
 
 ```bash
-cd ml-assignment2-final
+cd ml-assignment2
 pip install -r requirements.txt
 python train_models.py          # only if model/ is missing
 python -m streamlit run app.py
@@ -120,7 +120,8 @@ In the app: upload `test_data.csv`, pick a model from the dropdown, and view met
 
 **Live Streamlit Community Cloud application:**
 
-`https://ml-assignment2-q76fuuumnnzppj6eosgc5k.streamlit.app`
+[Live Streamlit Application](https://ml-assignment2-q76fuuumnnzppj6eosgc5k.streamlit.app)
+
 
 Deploy settings: repository = this project, branch = `main`, main file = **`app.py`**.
 
